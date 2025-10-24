@@ -1,8 +1,6 @@
 # DIAGRAMA: EVAL_CONDITION
 
-## 🔍 Eval_condition - Evaluación de Condiciones
-
-Copia este código en https://mermaid.live/
+## Eval_condition 
 
 ```mermaid
 graph TD
@@ -29,7 +27,7 @@ graph TD
     M --> N[Resultado: true/false]
 ```
 
-## 📋 Sintaxis de Variables:
+## Sintaxis de Variables:
 
 | **Sintaxis** | **Significado** | **Ejemplo** |
 |-------------|----------------|------------|
@@ -42,7 +40,7 @@ graph TD
 | `@e5f10:length()` | Longitud del array en field 10 de etapa 5 | `@e5f10:length()>5` |
 | `@$$WORKER` | Parámetro del proceso | `@$$WORKER=="192.168.1.100"` |
 
-## 🔑 Código clave:
+## Código clave:
 
 ```php
 // jwf_common_functions.php línea 1049
@@ -63,7 +61,7 @@ function eval_condition(string $condition, array $job, array $metadata) {
 }
 ```
 
-## 💡 Ejemplos:
+## Ejemplos:
 
 ```php
 // Condición: "@f10==200"
