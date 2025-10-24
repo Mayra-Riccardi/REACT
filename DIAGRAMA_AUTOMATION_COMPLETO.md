@@ -1,6 +1,6 @@
 # DIAGRAMA COMPLETO DEL AUTOMATION - JOBS WORKFLOW
 
-## 🎯 FLUJO PRINCIPAL DEL AUTOMATION
+## FLUJO PRINCIPAL DEL AUTOMATION
 
 ```mermaid
 graph TD
@@ -59,7 +59,7 @@ graph TD
     II --> C
 ```
 
-## 🔄 CICLO DE VIDA DE UN JOB
+## CICLO DE VIDA DE UN JOB
 
 ```mermaid
 graph TD
@@ -95,7 +95,7 @@ graph TD
     U --> D
 ```
 
-## 📊 BATCH MODE - CONTROL DE CONCURRENCIA
+## BATCH MODE - CONTROL DE CONCURRENCIA
 
 ```mermaid
 graph TD
@@ -125,107 +125,7 @@ graph TD
     Q --> R[Continuar Loop]
 ```
 
-## 🎯 STEP FORWARD - AVANCE DE TAREAS
-
-```mermaid
-graph TD
-    A[StepForward Iniciado] --> B[PropagateMetadata]
-    B --> C[Buscar Transiciones]
-    C --> D[Evaluar Condiciones]
-    
-    D --> E{eval_condition}
-    E --> F[Reemplazar Variables]
-    F --> G[@f10, @e5, @$$WORKER]
-    G --> H[eval PHP Expression]
-    H --> I{Resultado?}
-    
-    I -->|true| J[Agregar a nexts]
-    I -->|false| K[Ignorar Transición]
-    
-    J --> L{Verificar Hermanos}
-    K --> L
-    L --> M{Todos los Hermanos<br/>Terminaron?}
-    
-    M -->|SÍ| N[Crear Nueva Tarea]
-    M -->|NO| O[STATUS_WAITING_FOR_OTHERS]
-    
-    N --> P[Determinar Status Inicial]
-    P --> Q{Type de Etapa?}
-    
-    Q -->|7,10,11| R[STATUS_AUTOMATED_TASK 60]
-    Q -->|Otros| S[STATUS_INITIALIZED 20]
-    
-    R --> T[Si EXTERNAL_AUTOMATION:<br/>Enviar Inmediato al Gateway]
-    S --> U[Marcar Actual Completada]
-    T --> U
-    U --> V[Actualizar Job Status]
-```
-
-## 🔍 EVAL_CONDITION - EVALUACIÓN DE CONDICIONES
-
-```mermaid
-graph TD
-    A[eval_condition] --> B{Condición Vacía?}
-    B -->|SÍ| C[return true]
-    B -->|NO| D[Procesar Variables]
-    
-    D --> E[@f10 - Metadata Field 10]
-    D --> F[@f10[0] - Array Position]
-    D --> G[@e5f10 - Stage 5 Field 10]
-    D --> H[@e5 - Stage 5 Exists]
-    D --> I[@e5:count - Times in Stage 5]
-    D --> J[@$$WORKER - Process Parameter]
-    
-    E --> K[Reemplazar con Valores]
-    F --> K
-    G --> K
-    H --> K
-    I --> K
-    J --> K
-    
-    K --> L[Construir Expression PHP]
-    L --> M[eval return expression]
-    M --> N[Resultado: true/false]
-```
-
-## 📋 TIPOS DE STATUS
-
-### JOB STATUS (jwjo_status)
-```mermaid
-graph LR
-    A[60: Waiting Batch] --> B[10: Running]
-    B --> C[70: Working]
-    C --> D[30: Completed]
-    
-    A --> E[20: Stand by]
-    E --> F[25: Taken]
-    F --> G[28: Working]
-    G --> D
-    
-    A --> H[40: Cancelled]
-    A --> I[50: Waiting for others]
-    A --> J[-1: Job deleted]
-```
-
-### TASK STATUS (jwta_status)
-```mermaid
-graph LR
-    A[60: Automated task] --> B[10: Waiting for previous]
-    B --> C[30: Completed]
-    
-    A --> D[20: Initialized]
-    D --> E[25: Taken]
-    E --> F[28: Working]
-    F --> C
-    
-    A --> G[40: Cancelled]
-    A --> H[50: Waiting for others]
-    A --> I[70: Overridden]
-    A --> J[-20: Initialized locked]
-    A --> K[-25: Take locked]
-```
-
-## 🏗️ STAGE TYPES
+## STAGE TYPES
 
 ```mermaid
 graph TD
@@ -250,7 +150,7 @@ graph TD
     J --> S[Operación Interna Core]
 ```
 
-## 🔄 FLUJO COMPLETO CON EJEMPLO
+## FLUJO COMPLETO CON EJEMPLO
 
 ```mermaid
 sequenceDiagram
@@ -292,7 +192,7 @@ sequenceDiagram
     Note over A,C: Job 100 no aparece (status 30)
 ```
 
-## ⏱️ TIMELINE DE UNA VUELTA DEL AUTOMATION
+## TIMELINE DE UNA VUELTA DEL AUTOMATION
 
 ```mermaid
 gantt
@@ -318,7 +218,7 @@ gantt
     sleep 5 segundos             :1500, 5000
 ```
 
-## 🕐 CORE CADENCE - CONTROL DE FRECUENCIA
+## CORE CADENCE - CONTROL DE FRECUENCIA
 
 ```mermaid
 sequenceDiagram
@@ -360,7 +260,7 @@ sequenceDiagram
     A->>A: continue (salta)
 ```
 
-## 🎯 RESUMEN DE CONCEPTOS CLAVE
+## RESUMEN DE CONCEPTOS CLAVE
 
 ### JERARQUÍA FUNDAMENTAL
 ```
@@ -422,21 +322,3 @@ PROCESS (Workflow)
 - Control de slots por job status
 
 ---
-
-## 📥 INSTRUCCIONES PARA USAR ESTE DIAGRAMA
-
-1. **Copia el contenido** de este archivo
-2. **Visita**: https://mermaid.live/
-3. **Pega el código** en el editor
-4. **Descarga** como PNG, SVG o PDF
-5. **Estudia** cada sección por separado
-
-## 🔗 ENLACES ÚTILES
-
-- **Mermaid Live Editor**: https://mermaid.live/
-- **Documentación Mermaid**: https://mermaid-js.github.io/mermaid/
-- **GitHub Mermaid**: https://github.com/mermaid-js/mermaid
-
----
-
-*Diagrama creado para entender el flujo completo del Automation en Jobs Workflow*
