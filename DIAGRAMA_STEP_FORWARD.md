@@ -2,8 +2,6 @@
 
 ## StepForward - Avance de Tareas
 
-Copia este código en https://mermaid.live/
-
 ```mermaid
 graph TD
     A[StepForward Iniciado] --> B[PropagateMetadata]
